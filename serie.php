@@ -44,7 +44,7 @@
         }
 
         public function setOrigin($o){
-            $this->origin = ucfirst(strtolower($o));
+            $this->origin = (string)$o;
         }
 
         //Get
@@ -54,12 +54,13 @@
         }
 
         public function getCreated(){
-            return $this->created;
+            $d = new DateTime($this->created);
+            return $d->format('d/m/Y H:i:s' );
         }
 
         public function getUpdated(){
             $d = new DateTime($this->updated);
-            return $d->format('d/m/Y h:i:s' );
+            return $d->format('d/m/Y H:i:s' );
         }
 
         public function getTitle(){
@@ -115,7 +116,47 @@
 
         public static function seriesAll(){
             $db = new Database();
-            $r = $db->query('SELECT * FROM series');
+            $r = $db->query('SELECT * FROM series ORDER BY title ASC');
+            $series = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $series[] = new series($d);
+            }
+            return $series;
+        }
+        
+        public static function seriesSearch(){
+           $db = new Database();
+           $r = $db->query('SELECT * FROM series WHERE title LIKE "%'.$_POST['searchSerie'].'%" ORDER BY title ASC');
+           $series = [];
+           while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                    $series[] = new series($d);
+            }
+            return $series;
+        }
+
+        public static function seriesOrigin(){
+            $db = new Database();
+            $r = $db->query('SELECT * FROM series WHERE origin LIKE "%'.$_POST['searchOrigin'].'%" ORDER BY title ASC');
+            $series = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $series[] = new series($d);
+            }
+            return $series;
+        }
+
+        public static function seriesOriginSearch(){
+            $db = new Database();
+            $r = $db->query('SELECT * FROM series WHERE origin = "'.$_POST['searchOrigin'].'" AND title LIKE "%'.$_POST['searchSerie'].'%" ORDER BY title ASC');
+            $series = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $series[] = new series($d);
+            }
+            return $series;
+        }
+
+        public static function randomSearch(){
+            $db = new Database();
+            $r = $db->query('SELECT * FROM series ORDER BY RAND() LIMIT 1');
             $series = [];
             while($d = $r->fetch(PDO::FETCH_ASSOC)){
                 $series[] = new series($d);

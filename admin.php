@@ -13,7 +13,7 @@ if(isset($_POST['addSeries']) || isset($_POST['update'])){
         $url = "?error=1";
     }
     
-    header('Location: index.php'.$url);
+    header('Location: admin.php'.$url);
     exit();
 }
 
@@ -22,7 +22,7 @@ elseif(isset($_POST['deleteSeries'])){
     $t = new series($_POST['id']);
     $t->delete();
     
-    header('Location: index.php');
+    header('Location: admin.php');
     exit();
 }
 
@@ -35,7 +35,7 @@ if(isset($_POST['addBooks'])){
     else{
         $url = "?error=1";
     }
-    header('Location: index.php'.$url);
+    header('Location: admin.php'.$url);
     exit();
 }
 ?>
@@ -78,7 +78,7 @@ if(isset($_POST['addBooks'])){
                 <td><?php echo $a->getOrigin();?></td>
                 <td>
                     <!-- Form update button -->
-                <a href="index.php?edit=<?= $a->getId()?>">Modify</a>
+                <a href="admin.php?edit=<?= $a->getId()?>">Modify</a>
                 </td>
                 <td>
                     <!-- Form delete button -->
@@ -96,11 +96,11 @@ if(isset($_POST['addBooks'])){
     <h1>Bienvenue dans mon site série</h1>
 
     <h2>Formulaire pour ajouter une série</h2>
- <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-    <label for="title">Title</label>
-    <input type="text" name="title" placeholder="title">
+ <form action="admin.php" method="post">
     <label for="origin">Origin</label>
     <input type="text" name="origin" placeholder="origin">
+    <label for="title">Title</label>
+    <input type="text" name="title" placeholder="title">
     <input  type="submit" name="addSeries" value="Ajouter">
 </form>
     <?php if(!empty($_GET['edit'])): 

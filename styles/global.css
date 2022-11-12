@@ -94,7 +94,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 0px;
-  grid-row-gap: 1rem;
+  grid-row-gap: 0.5rem;
 }
 .container .researchSerie .parent input[type=text] {
   padding-left: 1rem;
@@ -122,14 +122,9 @@ body {
 .container .researchSerie .parent .submitSerie {
   width: 90%;
 }
-.container .researchSerie .parent .inputRandomSerie {
-  width: 100%;
-}
-.container .researchSerie .parent .inputRandomSerie:focus {
-  outline: none;
-}
 .container .researchSerie .parent .randomSubmitSerie {
-  width: 60px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .container .researchSerie .div1 {
   grid-area: 1/1/2/2;
@@ -147,7 +142,7 @@ body {
   grid-area: 2/2/3/3;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 937px) {
   .container {
     width: 90%;
   }
@@ -157,24 +152,20 @@ body {
   }
   .container .researchSerie .parent {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-  }
-  .container .researchSerie .parent input[type=text] {
-    padding-left: 0.5rem;
+    grid-template-rows: repeat(2, 1fr);
   }
   .container .researchSerie .parent .inputSerie {
-    width: 90%;
-    min-width: 175px;
+    width: 80%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .container .researchSerie .parent .inputSerie:focus {
+    outline: none;
   }
   .container .researchSerie .parent .submitSerie {
-    width: 175px;
-  }
-  .container .researchSerie .parent .inputRandomSerie {
-    width: 100%;
-    min-width: 185px;
-  }
-  .container .researchSerie .parent .randomSubmitSerie {
-    width: 60px;
+    width: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .container .researchSerie .div1 {
     grid-area: 1/1/2/2;
@@ -183,16 +174,13 @@ body {
     grid-area: 1/2/2/3;
   }
   .container .researchSerie .div3 {
-    grid-area: 2/1/3/2;
+    grid-area: 2/2/3/3;
   }
   .container .researchSerie .div4 {
-    grid-area: 3/1/4/2;
-  }
-  .container .researchSerie .div5 {
-    grid-area: 3/2/4/3;
+    grid-area: 2/1/3/2;
   }
 }
-@media (max-width: 426px) {
+@media (max-width: 548px) {
   .container {
     width: 90%;
   }
@@ -201,10 +189,8 @@ body {
     padding-right: 0rem;
   }
   .container .researchSerie .parent {
-    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(5, 1fr);
-    gap: 0.5rem;
   }
   .container .researchSerie .parent .inputRandomSerie {
     width: 90%;
@@ -226,7 +212,7 @@ body {
   }
 }
 .containerListSerie {
-  padding: 1rem 1.8rem 1rem 1.8rem;
+  padding: 0rem 1.8rem 1rem 1.8rem;
   border-top: solid 1px white;
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -234,9 +220,43 @@ body {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
+.containerListSerie h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
 .containerListSerie .div1 {
+  padding-top: 1rem;
   grid-area: 1/1/2/2;
+}
+.containerListSerie table {
+  border-spacing: 1rem 0;
+}
+.containerListSerie table tr td {
+  text-align: left;
 }
 .containerListSerie .div2 {
   grid-area: 1/2/2/3;
+}
+.containerListSerie .div2 .statistiques {
+  background-color: #272C44;
+  padding: 1rem;
+}
+.containerListSerie .div2 .statistiques .miniContainer {
+  height: 34px;
+  display: flex;
+  align-items: center;
+}
+.containerListSerie .div2 .statistiques #containerBlue {
+  border-top: solid 3px #458ABB;
+}
+.containerListSerie .div2 .statistiques #containerOrange {
+  border-top: solid 3px #ff8c00;
+}
+.containerListSerie .div2 .statistiques #containerRed {
+  border-top: solid 3px #ff0000;
+}
+
+/*-------------------------------- Admin Page ------------------------------*/
+table {
+  border-spacing: 1rem 0;
 }/*# sourceMappingURL=global.css.map */

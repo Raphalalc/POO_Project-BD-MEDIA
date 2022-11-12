@@ -1,6 +1,30 @@
 <?php 
 require_once('database.php'); 
 require_once('serie.php');
+$allSeries = series::seriesAll();
+
+if(isset($_POST['research'])){
+    if(!empty($_POST['searchSerie'])){
+        $allSeries = series::seriesSearch();
+    }
+    elseif(!empty($_POST['searchOrigin'])){
+        $allSeries = series::seriesOrigin();
+    }
+    elseif(!empty($_POST['searchSerie']) && !empty($_POST['searchOrigin'])){
+        $allSeries = series::seriesOriginSearch();
+    }
+    else{
+        $allSeries = series::seriesAll();
+    }
+}
+
+if(isset($_POST['randomSearch'])){
+    $allSeries = series::randomSearch();
+}
+else{
+    $allSerie = series::seriesAll();
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -14,7 +38,7 @@ require_once('serie.php');
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&family=Kameron&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-<?php $allSeries = series::seriesAll();?>
+
     <header>
         <div class="headerPage">
             <div class="menu"><a href="admin.php">Page admin</a></div>
@@ -27,22 +51,21 @@ require_once('serie.php');
             <div class="researchSerie">
                 <h2>Rechercher une série</h2>
                     <div class="parent">
-                        <div class="div1"> <form action="index.php" method="post"><input type="text" class="inputSerie" name="searchSerie" placeholder="Ecrivez le nom de la série"> </div>
-                        <div class="div2"><input type="text" class="inputSerie" name="search" placeholder="Ecrivez l'origine de la série"> </div>
+                        <div class="div1"> <form action="index.php" method="post"><input type="text" class="inputSerie" name="searchOrigin" placeholder="Ecrivez l'origine de la série"> </div>
+                        <div class="div2"><input type="text" class="inputSerie" name="searchSerie" placeholder="Ecrivez le nom de la série"> </div>
                         <div class="div3"> <input class="submitSerie"name="research" type="submit" value="Rechercher">   </form> </div>
-                        <div class="div4"><form action="index.php" method="post"> <input class="inputRandomSerie" type="text" name="randomSerie"  placeholder="Rechercher une sérié aléatoire" ></div>
-                        <div class="div5"><input class="randomSubmitSerie" type="submit" name="randomSearch" value="?"> </form></div>
+                        <div class="div4"><form action="index.php" method="post"> <input class="randomSubmitSerie" type="submit" name="randomSearch" value="Recherchez une série aléatoire"></form> </div>
                     </div>
             </div>
 
                 <h2>Liste des séries</h2>
                 <div class="containerListSerie">
-                    <div class="div1"></p>
+                    <div class="div1">
                     <table>
                         <thead>
                             <tr>
-                                <td>Origin</td>
-                                <td>Title</td>
+                                <td><h3>Origin</h3></td>
+                                <td><h3>Title</h3></td>
                             </tr>
 
                         </thead>
@@ -58,11 +81,12 @@ require_once('serie.php');
                     </div>
                     
                     <div class="div2">
-                       <div class="statistique">
+                       <div class="statistiques">
                             <h3>Statistiques</h3>
-                            <!-- <p>Nombre de séries : <?php echo series::countSeries();?></p> -->
-                            <p>Nombre de séries par origine : </p>
-                            <p>Nombre de séries par année : </p>
+                            <div class="miniContainer" id="containerBlue"> <p>Albums</p></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Series</p></div>
+                            <div class="miniContainer" id="containerOrange"> <p>Auteurs</p></div>
+                            <div class="miniContainer" id="containerRed"> <p>Planches</p></div>
                        </div>
                     </div>
                 </div>
