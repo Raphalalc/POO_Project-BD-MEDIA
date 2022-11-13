@@ -201,7 +201,7 @@ body{
          grid-area: 1 / 1 / 2 / 2; }
          table{border-spacing:1rem 0;
            tr{
-            td{text-align:left; } 
+            td{text-align:left; a{color:white; text-decoration:none;} a:hover{text-decoration-line: underline;} } 
            }
          }
     .div2 { grid-area: 1 / 2 / 2 / 3; 

@@ -234,6 +234,14 @@ body {
 .containerListSerie table tr td {
   text-align: left;
 }
+.containerListSerie table tr td a {
+  color: white;
+  text-decoration: none;
+}
+.containerListSerie table tr td a:hover {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
 .containerListSerie .div2 {
   grid-area: 1/2/2/3;
 }

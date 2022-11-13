@@ -1,7 +1,10 @@
 <?php 
-require_once('database.php'); 
-require_once('serie.php');
-require_once('book.php');
+require_once('./constructor/database.php'); 
+require_once('./constructor/serie.php');
+require_once('./constructor/book.php');
+
+// SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id`
+
 
 // Modify and display series
 if(isset($_POST['addSeries']) || isset($_POST['update'])){
@@ -27,17 +30,17 @@ elseif(isset($_POST['deleteSeries'])){
 }
 
 if(isset($_POST['addBooks'])){
-    $url= "";
-    $t = new books($_POST);
-    if($t->isValid())
-    $t->save();
-   
+    $url = "";
+    $b = new books($_POST);
+    if($b->isValid())
+    $b->save();
     else{
         $url = "?error=1";
     }
     header('Location: admin.php'.$url);
     exit();
 }
+
 ?>
 
 
@@ -64,6 +67,7 @@ if(isset($_POST['addBooks'])){
                 <td>Origin</td>
                 <td>Modify</td>
                 <td>Delete</td>
+                <td>Ajouter Album</td>
             </tr>
 
         </thead>
@@ -82,10 +86,14 @@ if(isset($_POST['addBooks'])){
                 </td>
                 <td>
                     <!-- Form delete button -->
-                    <form method="POST">
+                    <form method="post">
                     <input type="hidden" name="id" value="<?= $a->getId()?>">
                     <input type="submit" name="deleteSeries" value="Supprimer">
                     </form>
+                   <!-- form Ajouter album -->
+                </td>
+                <td>
+                    <a href="admin.php?ajout=<?= $a->getId()?>">Ajouter Album</a>
                 </td>
             </tr>
             <?php endforeach;?>
@@ -118,6 +126,71 @@ if(isset($_POST['addBooks'])){
     <input  type="submit" name="update" value="Modifier">
     <?php endif;?>
 </form>
-
+        <table>
+            <thead>
+                <tr>
+                    
+                        <td>Id</td>
+                        <td>Created</td>
+                        <td>Updated</td>
+                        <td>Serie_id</td>
+                        <td>Title</td>
+                        <td>Num</td>
+                        <td>Write</td>
+                        <td>Illustrator</td>
+                        <td>Editor</td>
+                        <td>Releaseyear</td>
+                        <td>Strips</td>
+                        <td>Cover</td>
+                        <td>Rep</td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach($allBooks as $a):?>
+                <tr>
+                    <td><?php echo $a->getId();?></td>
+                    <td><?php echo $a->getCreated();?></td>
+                    <td><?php echo $a->getUpdated();?></td>
+                    <td><?php echo $a->getSerie_id();?></td>
+                    <td><?php echo $a->getTitle();?></td>
+                    <td><?php echo $a->getNum();?></td>
+                    <td><?php echo $a->getWriter();?></td>
+                    <td><?php echo $a->getIllustrator();?></td>
+                    <td><?php echo $a->getEditor();?></td>
+                    <td><?php echo $a->getReleaseyear();?></td>
+                    <td><?php echo $a->getStrips();?></td>
+                    <td><?php echo $a->getCover();?></td>
+                    <td><?php echo $a->getRep();?></td>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+        <?php if(!empty($_GET['ajout'])): 
+         $o = new books($_GET['ajout']);?>
+        <h2>Formulaire pour ajouter un album</h2>
+            <form action="admin.php" method="post">
+            <input type="text" name="serie_id" value="<?= $_GET['ajout']?>">
+       
+            <input type="text" name="title" placeholder="title"  maxlength="200"  value="title" >
+        
+            <input type="text" name="num" placeholder="num"  maxlength="5" >
+        
+            <input type="text" name="writer" placeholder="writer"  maxlength="100"  value="testwrite" >
+     
+            <input type="text" name="illustrator" placeholder="illustrator"  maxlength="100"   value="testillustrator"> 
+         
+            <input type="text" name="editor" placeholder="editor" maxlength="100"   value="testeditor" >
+        
+            <input type="number" name="releaseyear" placeholder="releaseyear" maxlength="5"  value="2000">
+         
+            <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
+         
+            <input type="text" name="cover" placeholder="cover"  maxlength="30"  value="testcover">
+        
+            <input type="number"  min="0" max="1" name="rep" placeholder="rep"  value="title">
+            
+            <input  type="submit" name="addBooks" value="Ajouter un album " >
+        </form>
+        <?php endif;?>
 </body>
 </html>

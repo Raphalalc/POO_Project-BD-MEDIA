@@ -26,7 +26,7 @@
             //
         }
 
-        // SET
+        
         public function setId($id){
             $this->id = (int)$id;
         }
@@ -103,17 +103,6 @@
             }
         }
 
-        public function update(){
-            if(!empty($this->id)){
-                $r = $this->prepare('UPDATE series SET title = :t, origin = :o, updated = NOW() WHERE id = :i');
-                $r->execute([
-                    ':t' => $this->title,
-                    ':o' => $this->origin,
-                    ':i' => $this->id
-                ]);
-            }
-        }
-
         public static function seriesAll(){
             $db = new Database();
             $r = $db->query('SELECT * FROM series ORDER BY title ASC');
@@ -164,3 +153,6 @@
             return $series;
         }
     }
+   
+?>
+    

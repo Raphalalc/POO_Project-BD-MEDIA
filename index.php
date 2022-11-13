@@ -1,8 +1,9 @@
 <?php 
-require_once('database.php'); 
-require_once('serie.php');
+require_once('./constructor/database.php'); 
+require_once('./constructor/serie.php');
 $allSeries = series::seriesAll();
 
+// Button research
 if(isset($_POST['research'])){
     if(!empty($_POST['searchSerie'])){
         $allSeries = series::seriesSearch();
@@ -17,7 +18,7 @@ if(isset($_POST['research'])){
         $allSeries = series::seriesAll();
     }
 }
-
+// Button randomSearch
 if(isset($_POST['randomSearch'])){
     $allSeries = series::randomSearch();
 }
@@ -73,7 +74,7 @@ else{
                             <?php foreach($allSeries as $a):?>
                             <tr>
                                 <td><?php echo $a->getOrigin();?></td>
-                                <td><?php echo $a->getTitle();?></td>
+                                <td> <a href="albumLocation.php?id=<?= $a->getId()?>"><?php echo $a->getTitle();?></a></td>
                             </tr>
                             <?php endforeach;?>
                         </tbody>

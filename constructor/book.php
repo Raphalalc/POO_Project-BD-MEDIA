@@ -28,10 +28,8 @@
                 
                 if($r->rowCount() > 0)
                 $this->hydrate($r->fetch(PDO::FETCH_ASSOC));	
-                
-                
+
             }
-            //
         }
 
         // SET
@@ -56,11 +54,11 @@
         }
 
         public function setNum($n){
-            $this->num = (int)$n;
+            $this->num = (string)$n;
         }
 
-        public function setWrite($w){
-            $this->write = (string)$w;
+        public function setWriter($w){
+            $this->writer = (string)$w;
         }
 
         public function setIllustrator($i){
@@ -113,8 +111,8 @@
             return $this->num;
         }
 
-        public function getWrite(){
-            return $this->write;
+        public function getWriter(){
+            return $this->writer;
         }
 
         public function getIllustrator(){
@@ -141,6 +139,7 @@
             return $this->rep;
         }
 
+
         public function save(){
             if($this->id > 0){
                 $r = $this->prepare('UPDATE books SET updated = NOW(), serie_id = :s, title = :t, num = :n, write = :w, illustrator = :i, editor = :e, releaseyear = :r, strips = :st, cover = :c, rep = :r WHERE id = :i');
@@ -149,7 +148,7 @@
                     ':s' => $this->serie_id,
                     ':t' => $this->title,
                     ':n' => $this->num,
-                    ':w' => $this->write,
+                    ':w' => $this->writer,
                     ':i' => $this->illustrator,
                     ':e' => $this->editor,
                     ':r' => $this->releaseyear,
@@ -159,12 +158,13 @@
                 ]);
             }
             else{
-                $r = $this->prepare('INSERT INTO books (created, updated, serie_id, title, num, write, illustrator, editor, releaseyear, strips, cover, rep) VALUES (NOW(), NOW(), :s, :t, :n, :w, :i, :e, :r, :st, :c, :r)');
+                $r = $this->prepare("INSERT INTO `books` (`id`, `created`, `updated`, `serie_id`, `title`, `num`, `writer`, `illustrator`, `editor`, `releaseyear`, `strips`, `cover`, `rep`) 
+                VALUES (NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, :s, :t, :n, :w, :i, :e, :r, :st, :c, :r)");
                 $r->execute([
                     ':s' => $this->serie_id,
                     ':t' => $this->title,
                     ':n' => $this->num,
-                    ':w' => $this->write,
+                    ':w' => $this->writer,
                     ':i' => $this->illustrator,
                     ':e' => $this->editor,
                     ':r' => $this->releaseyear,
@@ -172,25 +172,28 @@
                     ':c' => $this->cover,
                     ':r' => $this->rep
                 ]);
-                // $this->id = $this->lastInsertId();
             }
+               
         }
        
         public function isValid(){
-            if(empty($this->title) || empty($this->serie_id) || empty($this->num) || empty($this->write) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips) || empty($this->cover) || empty($this->rep)){
-                return false;
-            }
-            else{
-                return true;
-            }
+           if(empty($this->title) || empty($this->serie_id) || empty($this->num) || empty($this->writer) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips) || empty($this->cover)){
+               return false;
+           }
+           else{
+               return true;
+           }
         }
        
         public static function booksAll(){
             $db = new database();
-            $r = $db->query('SELECT * FROM books');
-            $r->setFetchMode(PDO::FETCH_CLASS, 'books');
-            return $r->fetchAll();
+            $r = $db->query('SELECT * FROM books ORDER BY id DESC');
+            $books = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $books[] = new books($d);
+            }
+            return $books;
         }
+
     }
-    
     ?>
