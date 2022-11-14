@@ -139,12 +139,14 @@
             return $this->rep;
         }
 
+        // mysql request to update books
 
+       
         public function save(){
             if($this->id > 0){
-                $r = $this->prepare('UPDATE books SET updated = NOW(), serie_id = :s, title = :t, num = :n, write = :w, illustrator = :i, editor = :e, releaseyear = :r, strips = :st, cover = :c, rep = :r WHERE id = :i');
+                $r = $this->prepare('UPDATE books SET serie_id = :s, title = :t, num = :n, writer = :w, illustrator = :i, editor = :e, releaseyear = :r, strips = :st, cover = :c, rep = :re WHERE id = :id');
                 $r->execute([
-                    ':i' => $this->id,
+                    ':id' => $this->id,
                     ':s' => $this->serie_id,
                     ':t' => $this->title,
                     ':n' => $this->num,
@@ -154,35 +156,39 @@
                     ':r' => $this->releaseyear,
                     ':st' => $this->strips,
                     ':c' => $this->cover,
-                    ':r' => $this->rep
+                    ':re' => $this->rep
                 ]);
             }
             else{
-                $r = $this->prepare("INSERT INTO `books` (`id`, `created`, `updated`, `serie_id`, `title`, `num`, `writer`, `illustrator`, `editor`, `releaseyear`, `strips`, `cover`, `rep`) 
-                VALUES (NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, :s, :t, :n, :w, :i, :e, :r, :st, :c, :r)");
-                $r->execute([
-                    ':s' => $this->serie_id,
-                    ':t' => $this->title,
-                    ':n' => $this->num,
-                    ':w' => $this->writer,
-                    ':i' => $this->illustrator,
-                    ':e' => $this->editor,
-                    ':r' => $this->releaseyear,
-                    ':st' => $this->strips,
-                    ':c' => $this->cover,
-                    ':r' => $this->rep
-                ]);
+            $r = $this->prepare('INSERT INTO books (serie_id, title, num, writer, illustrator, editor, releaseyear, strips, cover, rep) VALUES (:s, :t, :n, :w, :i, :e, :r, :st, :c, :re)');
+            $r->execute([
+                ':s' => $this->serie_id,
+                ':t' => $this->title,
+                ':n' => $this->num,
+                ':w' => $this->writer,
+                ':i' => $this->illustrator,
+                ':e' => $this->editor,
+                ':r' => $this->releaseyear,
+                ':st' => $this->strips,
+                ':c' => $this->cover,
+                ':re' => $this->rep
+            ]);
             }
-               
         }
        
+       
         public function isValid(){
-           if(empty($this->title) || empty($this->serie_id) || empty($this->num) || empty($this->writer) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips) || empty($this->cover)){
+           if(empty($this->title) || empty($this->num) || empty($this->writer) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips)){
                return false;
            }
            else{
                return true;
            }
+        }
+
+        public function delete(){
+            $r = $this->prepare('DELETE FROM books WHERE id = :id');
+            $r->execute([':id' => $this->id]);
         }
        
         public static function booksAll(){

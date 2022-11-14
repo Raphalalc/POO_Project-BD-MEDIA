@@ -5,9 +5,9 @@ require_once('./constructor/book.php');
 
 // SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id`
 
-
+//SERIES
 // Modify and display series
-if(isset($_POST['addSeries']) || isset($_POST['update'])){
+if(isset($_POST['addSeries']) || isset($_POST['updateSeries'])){
     $url= "";
     $t = new series($_POST);
     if($t->isValid())
@@ -29,7 +29,10 @@ elseif(isset($_POST['deleteSeries'])){
     exit();
 }
 
-if(isset($_POST['addBooks'])){
+
+//Allbum
+// Modify and display books
+if(isset($_POST['addBooks']) || isset($_POST['updateAlbum'])){
     $url = "";
     $b = new books($_POST);
     if($b->isValid())
@@ -41,6 +44,14 @@ if(isset($_POST['addBooks'])){
     exit();
 }
 
+// Delete books
+elseif(isset($_POST['deleteAlbum'])){
+    $b = new books($_POST['id']);
+    $b->delete();
+    
+    header('Location: admin.php');
+    exit();
+}
 ?>
 
 
@@ -57,6 +68,16 @@ if(isset($_POST['addBooks'])){
     <div class="circle"></div>
     <?php $allSeries = series::seriesAll();?>
     <?php $allBooks = books::booksAll();?>
+    <br>
+       <h2>Formulaire pour ajouter une série</h2>
+   <br>
+    <form action="admin.php" method="post">
+       <label for="origin">Origin</label>
+       <input type="text" name="origin" placeholder="origin">
+       <label for="title">Title</label>
+       <input type="text" name="title" placeholder="title">
+       <input  type="submit" name="addSeries" value="Ajouter">
+   </form>
     <table>
         <thead>
             <tr>
@@ -67,12 +88,13 @@ if(isset($_POST['addBooks'])){
                 <td>Origin</td>
                 <td>Modify</td>
                 <td>Delete</td>
-                <td>Ajouter Album</td>
+                <td>Add album</td>
             </tr>
 
         </thead>
         <tbody>
-            <h2>Liste de séries</h2>
+            <h2>Page admin</h2>
+            <h3>Liste des séries</h3>
             <?php foreach($allSeries as $a):?>
             <tr>
                 <td><?php echo $a->getId();?></td>
@@ -88,12 +110,12 @@ if(isset($_POST['addBooks'])){
                     <!-- Form delete button -->
                     <form method="post">
                     <input type="hidden" name="id" value="<?= $a->getId()?>">
-                    <input type="submit" name="deleteSeries" value="Supprimer">
+                    <input type="submit" name="deleteSeries" value="Delete">
                     </form>
-                   <!-- form Ajouter album -->
                 </td>
+                    <!-- Form Ajouter album -->
                 <td>
-                    <a href="admin.php?ajout=<?= $a->getId()?>">Ajouter Album</a>
+                    <a href="admin.php?ajout=<?= $a->getId()?>">Add album</a>
                 </td>
             </tr>
             <?php endforeach;?>
@@ -101,35 +123,54 @@ if(isset($_POST['addBooks'])){
     </table>
    
 
-    <h1>Bienvenue dans mon site série</h1>
-
-    <h2>Formulaire pour ajouter une série</h2>
- <form action="admin.php" method="post">
-    <label for="origin">Origin</label>
-    <input type="text" name="origin" placeholder="origin">
-    <label for="title">Title</label>
-    <input type="text" name="title" placeholder="title">
-    <input  type="submit" name="addSeries" value="Ajouter">
-</form>
     <?php if(!empty($_GET['edit'])): 
     $o = new series($_GET['edit']);?>
+    <br>
     <h2>Formulaire pour modifier une série</h2>
-
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+            <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
+            <label for="title">Title</label>
+            <input type="text" name="title" placeholder="title" value="<?= $o->getTitle()?>">
+            <label for="origin">Origin</label>
+            <input type="text" name="origin" placeholder="origin" value="<?= $o->getOrigin()?>">
+            <input type="hidden" name="id" value="<?= $o->getId()?>">
+            <input  type="submit" name="updateSeries" value="Modifier">
+        <?php endif;?>
+    </form>
 
-   <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
-    <label for="title">Title</label>
-    <input type="text" name="title" placeholder="title" value="<?= $o->getTitle()?>">
-    <label for="origin">Origin</label>
-    <input type="text" name="origin" placeholder="origin" value="<?= $o->getOrigin()?>">
-    <input type="hidden" name="id" value="<?= $o->getId()?>">
-    <input  type="submit" name="update" value="Modifier">
-    <?php endif;?>
+<br>
+<?php if(!empty($_GET['ajout'])): 
+ $o = new books($_GET['ajout']);?>
+<h2>Formulaire pour ajouter un album</h2>
+    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <input type="text" name="serie_id"  value="<?= $o->getId()?>">
+
+    <input type="text" name="title" placeholder="title"  maxlength="200"  value="title" >
+
+    <input type="text" name="num" placeholder="num"  maxlength="5" >
+
+    <input type="text" name="writer" placeholder="writer"  maxlength="100"  value="testwrite" >
+
+    <input type="text" name="illustrator" placeholder="illustrator"  maxlength="100" value="testillustrator"> 
+ 
+    <input type="text" name="editor" placeholder="editor" maxlength="100"   value="testeditor" >
+
+    <input type="number" name="releaseyear" placeholder="releaseyear" min="1976" maxlength="2100">
+ 
+    <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
+ 
+    <input type="text" name="cover" placeholder="cover"  maxlength="30"  value="testcover">
+
+    <input type="number"  min="0" max="1" name="rep" placeholder="rep"  value="title">
+    
+    <input  type="submit" name="addBooks" value="Ajouter un album " >
 </form>
+<?php endif;?>
+<br>
+    <h2>Liste des albums</h2>
         <table>
             <thead>
                 <tr>
-                    
                         <td>Id</td>
                         <td>Created</td>
                         <td>Updated</td>
@@ -143,6 +184,9 @@ if(isset($_POST['addBooks'])){
                         <td>Strips</td>
                         <td>Cover</td>
                         <td>Rep</td>
+                        <td>Modify</td>
+                        <td>Delete</td>
+                        
                 </tr>
             </thead>
             <tbody>
@@ -161,36 +205,50 @@ if(isset($_POST['addBooks'])){
                     <td><?php echo $a->getStrips();?></td>
                     <td><?php echo $a->getCover();?></td>
                     <td><?php echo $a->getRep();?></td>
+                    <!-- Modify album -->
+                    <td> <a href="admin.php?editAlbum=<?= $a->getId()?>">Modify</a></td>
+                    
+                    <!-- Delete album  -->
+                    <td>
+                            <form method="post">
+                            <input type="hidden" name="id" value="<?= $a->getId()?>">
+                            <input type="submit" name="deleteAlbum" value="Delete">
+                            </form>
+                        </td>
                 </tr>
             <?php endforeach;?>
             </tbody>
         </table>
-        <?php if(!empty($_GET['ajout'])): 
-         $o = new books($_GET['ajout']);?>
-        <h2>Formulaire pour ajouter un album</h2>
-            <form action="admin.php" method="post">
-            <input type="text" name="serie_id" value="<?= $_GET['ajout']?>">
-       
-            <input type="text" name="title" placeholder="title"  maxlength="200"  value="title" >
-        
-            <input type="text" name="num" placeholder="num"  maxlength="5" >
-        
-            <input type="text" name="writer" placeholder="writer"  maxlength="100"  value="testwrite" >
-     
-            <input type="text" name="illustrator" placeholder="illustrator"  maxlength="100"   value="testillustrator"> 
-         
-            <input type="text" name="editor" placeholder="editor" maxlength="100"   value="testeditor" >
-        
-            <input type="number" name="releaseyear" placeholder="releaseyear" maxlength="5"  value="2000">
-         
-            <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
-         
-            <input type="text" name="cover" placeholder="cover"  maxlength="30"  value="testcover">
-        
-            <input type="number"  min="0" max="1" name="rep" placeholder="rep"  value="title">
-            
-            <input  type="submit" name="addBooks" value="Ajouter un album " >
+        <?php if(!empty($_GET['editAlbum'])): 
+        $o = new books($_GET['editAlbum']);?>*
+        <br>
+        <h2>Formulaire pour modifier un album</h2>
+        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+            <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
+                <input type="hidden" name="id" value="<?= $o->getId()?>">
+                <input type="hidden" name="serie_id" value="<?= $o->getSerie_id()?>">
+                <label for="title">Title</label>
+                <input type="text" name="title" placeholder="title" maxlength="200" value="<?= $o->getTitle()?>">
+                <label for="num"  >Num</label>
+                <input type="text" name="num" placeholder="num" maxlength="5" value="<?= $o->getNum()?>">
+                <label for="writer">Writer</label>
+                <input type="text" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
+                <label for="illustrator">Illustrator</label>
+                <input type="text" name="illustrator" placeholder="illustrator" maxlength="100" value="<?= $o->getIllustrator()?>">
+                <label for="editor">Editor</label>
+                <input type="text" name="editor" placeholder="editor" maxlength="100" value="<?= $o->getEditor()?>">
+                <label for="releaseyear">Releaseyear</label>
+                <input type="number" min="1976" maxlength="2100" name="releaseyear" placeholder="releaseyear" value="<?= $o->getReleaseyear()?>">
+                <label for="strips">Strips</label>
+                <input type="number" name="strips" placeholder="strips" maxlength="5" value="<?= $o->getStrips()?>">
+                <label for="cover">Cover</label>
+                <input type="text" name="cover" placeholder="cover" maxlength="30"value="<?= $o->getCover()?>">
+                <label for="rep">Rep</label>
+                <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="<?= $o->getRep()?>">
+                <input  type="submit" name="updateAlbum" value="Modifier l'album">
         </form>
+
+
         <?php endif;?>
 </body>
 </html>
