@@ -10,7 +10,7 @@ body {
 
 /*-------------------------------- Home Page ------------------------------*/
 .headerPage {
-  background-image: url("../assets/bd.jpeg");
+  background-image: url("../assets./img/bd.jpeg");
   height: 450px;
   width: 100%;
   background-size: cover;
@@ -112,6 +112,10 @@ body {
   color: white;
   font-family: "Kameron", serif;
   font-weight: bold;
+}
+.container .researchSerie .parent input[type=submit]:hover {
+  background-color: rgba(51, 51, 51, 0.6901960784);
+  color: white;
 }
 .container .researchSerie .parent .inputSerie {
   width: 90%;
@@ -267,4 +271,95 @@ body {
 /*-------------------------------- Admin Page ------------------------------*/
 table {
   border-spacing: 1rem 0;
+}
+
+/*-------------------------------- Album Location ------------------------------*/
+.headerLocation {
+  background-color: #272C44;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+.headerLocation a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+}
+.headerLocation img {
+  width: auto;
+  height: 50px;
+  margin-left: 1rem;
+}
+
+.albumContainer {
+  margin-top: 3rem;
+  width: 650px;
+  margin-inline: auto;
+  background-color: white;
+  color: #272C44;
+}
+.albumContainer .albumContainerHead {
+  color: #272C44;
+  background-color: #333333;
+  height: 50px;
+  padding: 1rem 1rem 0 1rem;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+.albumContainer .albumContainerHead h2 {
+  font-family: "Roboto", sans-serif;
+}
+.albumContainer .Lire {
+  margin-left: 2.2rem;
+}
+.albumContainer .parent {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.albumContainer .parent .div1 {
+  padding: 0.5rem 2rem 2rem 2rem;
+  grid-area: 1/1/2/2;
+}
+.albumContainer .parent .div1 img {
+  width: 180px;
+  height: auto;
+  border-radius: 30px;
+}
+.albumContainer .parent .div1 .squareImage {
+  width: 180px;
+  height: 164px;
+  border-radius: 30px;
+}
+.albumContainer .parent .div2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 5rem 0rem 3rem 0rem;
+  grid-area: 1/2/2/3;
+}
+.albumContainer .parent .div2 button {
+  background-color: #272C44;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  margin-top: 6rem;
+}
+.albumContainer .parent .div2 p {
+  font-family: "Kameron", serif;
+  font-size: 1.1rem;
+}
+.albumContainer .dottedLine {
+  border-top: 1px dotted #333333;
+  width: 100%;
+  height: 4px;
 }/*# sourceMappingURL=global.css.map */

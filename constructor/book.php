@@ -176,7 +176,26 @@
             }
         }
        
-       
+        public function image(){
+            if(isset($_FILES['cover']) && $_FILES['cover']['error'] == 0){
+                if($_FILES['cover']['size'] <= 1000000){
+                    $infosfichier = pathinfo($_FILES['cover']['name']);
+                    $extension_upload = $infosfichier['extension'];
+                    $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+                    if(in_array($extension_upload, $extensions_autorisees)){
+                        move_uploaded_file($_FILES['cover']['tmp_name'], 'assets/data/' . basename($_FILES['cover']['name']));
+                        $this->cover = "assets/data/".$_FILES['cover']['name'];
+                   
+                        $r = $this->prepare('UPDATE books SET cover = :c WHERE id = :id');
+                        $r->execute([
+                            ':id' => $this->id,
+                            ':c' => $this->cover
+                        ]);
+                    }
+                }
+            }
+        }
+
         public function isValid(){
            if(empty($this->title) || empty($this->num) || empty($this->writer) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips)){
                return false;
@@ -201,5 +220,7 @@
             return $books;
         }
 
+        // insert image
+     
     }
     ?>

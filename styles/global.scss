@@ -13,7 +13,7 @@ body{
 
 /*-------------------------------- Home Page ------------------------------*/
 .headerPage{
-    background-image: url("../assets/bd.jpeg");
+    background-image: url("../assets./img/bd.jpeg");
     height:450px;
     width:100%;
     background-size: cover;
@@ -121,7 +121,10 @@ body{
                 font-family: $Kameron;
                 font-weight: bold;
             }
-
+            input[type="submit"]:hover{
+                background-color: #333333b0;
+                color:white;
+            }
             .inputSerie{ width:90%;}
             .inputSerie:focus{
                outline:none;
@@ -225,6 +228,98 @@ body{
 
 /*-------------------------------- Admin Page ------------------------------*/
 table{
-    
     border-spacing: 1rem 0;
+}
+
+/*-------------------------------- Album Location ------------------------------*/
+
+.headerLocation{
+    background-color: $container;
+    height:50px;
+    display:flex;
+    align-items:center;
+    padding-left:1rem;
+    a{
+        color:white;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:1rem;
+        font-family:$Roboto;
+    }
+    img{
+        width:auto;
+        height:50px;
+        margin-left:1rem;
+    }
+}
+
+.albumContainer{
+    margin-top:3rem;
+    width:650px;
+    margin-inline:auto;
+    background-color:white;
+    color:$container;
+    .albumContainerHead{
+        color:$container;
+        background-color:#333333;
+        height:50px;
+        padding:1rem 1rem 0 1rem;
+        color:white;
+        margin-bottom:1.5rem;
+        h2{
+            font-family: $Roboto;
+        }
+    }
+
+    .Lire{
+        margin-left:2.2rem;
+    }
+    .parent {
+        display: grid;
+        grid-template-columns: 1fr 1.6fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+       
+        .div1 { 
+            padding: 0.5rem 2rem 2rem 2rem;  grid-area: 1 / 1 / 2 / 2;
+           
+            img{
+                width:180px;
+                height:auto;
+                border-radius: 30px;
+               
+            }
+            .squareImage{
+                width:180px;
+                height:164px;
+                border-radius:30px;
+            }
+        }
+        .div2 { display:flex; align-items: flex-start; justify-content: flex-start; flex-direction:column; padding:5rem 0rem 3rem 0rem;grid-area: 1 / 2 / 2 / 3;
+            button{
+                background-color : $container;
+                color:white;
+                font-size:1rem;
+                padding:0.5rem 1rem 0.5rem 1rem;
+                border-radius:25px;
+                border:none;
+                cursor:pointer;
+                margin-top:6rem;
+            }
+
+            p{
+                font-family: $Kameron;
+                font-size:1.1rem;
+            }
+        }
+
+    }
+    .dottedLine{
+        border-top: 1px dotted #333333;
+        width:100%;
+        height:4px;
+       
+    }
+
 }

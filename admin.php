@@ -43,7 +43,6 @@ if(isset($_POST['addBooks']) || isset($_POST['updateAlbum'])){
     header('Location: admin.php'.$url);
     exit();
 }
-
 // Delete books
 elseif(isset($_POST['deleteAlbum'])){
     $b = new books($_POST['id']);
@@ -52,7 +51,13 @@ elseif(isset($_POST['deleteAlbum'])){
     header('Location: admin.php');
     exit();
 }
+
+if(isset($_POST['addImage'])){
+    $b = new books($_POST);
+    $b->image($_FILES['cover']);
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -140,11 +145,11 @@ elseif(isset($_POST['deleteAlbum'])){
 
 <br>
 <?php if(!empty($_GET['ajout'])): 
- $o = new books($_GET['ajout']);?>
+ $o = new series($_GET['ajout']);?>
 <h2>Formulaire pour ajouter un album</h2>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-    <input type="text" name="serie_id"  value="<?= $o->getId()?>">
-
+    <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
+    <input type="hidden" name="serie_id"  value="<?= $o ->getId()?>">
     <input type="text" name="title" placeholder="title"  maxlength="200"  value="title" >
 
     <input type="text" name="num" placeholder="num"  maxlength="5" >
@@ -158,11 +163,8 @@ elseif(isset($_POST['deleteAlbum'])){
     <input type="number" name="releaseyear" placeholder="releaseyear" min="1976" maxlength="2100">
  
     <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
- 
-    <input type="text" name="cover" placeholder="cover"  maxlength="30"  value="testcover">
 
-    <input type="number"  min="0" max="1" name="rep" placeholder="rep"  value="title">
-    
+    <input type="hidden"  min="0" max="1" name="rep" placeholder="rep"  value="0">
     <input  type="submit" name="addBooks" value="Ajouter un album " >
 </form>
 <?php endif;?>
@@ -177,7 +179,7 @@ elseif(isset($_POST['deleteAlbum'])){
                         <td>Serie_id</td>
                         <td>Title</td>
                         <td>Num</td>
-                        <td>Write</td>
+                        <td>Writer</td>
                         <td>Illustrator</td>
                         <td>Editor</td>
                         <td>Releaseyear</td>
@@ -185,6 +187,7 @@ elseif(isset($_POST['deleteAlbum'])){
                         <td>Cover</td>
                         <td>Rep</td>
                         <td>Modify</td>
+                        <td>Add Image</td>
                         <td>Delete</td>
                         
                 </tr>
@@ -205,22 +208,27 @@ elseif(isset($_POST['deleteAlbum'])){
                     <td><?php echo $a->getStrips();?></td>
                     <td><?php echo $a->getCover();?></td>
                     <td><?php echo $a->getRep();?></td>
-                    <!-- Modify album -->
+                    <!-- Redirection Modify album -->
                     <td> <a href="admin.php?editAlbum=<?= $a->getId()?>">Modify</a></td>
                     
+                    <!-- Redirection Add image -->
+                    <td>
+                        <a href="admin.php?addImage=<?= $a->getId()?>">Add Image</a>
+                    </td>
                     <!-- Delete album  -->
                     <td>
                             <form method="post">
                             <input type="hidden" name="id" value="<?= $a->getId()?>">
                             <input type="submit" name="deleteAlbum" value="Delete">
                             </form>
-                        </td>
+                    </td>
                 </tr>
             <?php endforeach;?>
             </tbody>
         </table>
+        <!-- Modify Album -->
         <?php if(!empty($_GET['editAlbum'])): 
-        $o = new books($_GET['editAlbum']);?>*
+        $o = new books($_GET['editAlbum']);?>
         <br>
         <h2>Formulaire pour modifier un album</h2>
         <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
@@ -247,8 +255,22 @@ elseif(isset($_POST['deleteAlbum'])){
                 <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="<?= $o->getRep()?>">
                 <input  type="submit" name="updateAlbum" value="Modifier l'album">
         </form>
-
-
         <?php endif;?>
+
+        <!-- Form Image -->
+        <?php if(!empty($_GET['addImage'])):
+        $o = new books($_GET['addImage']);?>
+        <br>
+        <h2>Formulaire pour ajouter une image</h2>
+        <form  action="<?= $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?= $o->getId()?>">
+                <input type="hidden" name="serie_id" value="<?= $o->getSerie_id()?>">
+                <input type="hidden" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
+                <input type="file" name="cover" multiple />
+                <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="<?= $o->getRep()?>">
+                <input type="submit" name="addImage" value="Ajouter une image">
+        </form>
+        <?php endif;?>
+        
 </body>
 </html>
