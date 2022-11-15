@@ -313,35 +313,43 @@ table {
   font-family: "Roboto", sans-serif;
 }
 .albumContainer .Lire {
-  margin-left: 2.2rem;
+  margin-left: 4.2rem;
 }
 .albumContainer .parent {
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
+.albumContainer .parent #lireDiv1 {
+  padding-top: 1rem;
+}
 .albumContainer .parent .div1 {
-  padding: 0.5rem 2rem 2rem 2rem;
+  padding: 0.5rem 2rem 2rem 4rem;
   grid-area: 1/1/2/2;
 }
-.albumContainer .parent .div1 img {
+.albumContainer .parent .div1 .rectangleImage {
   width: 180px;
-  height: auto;
+  height: 270px;
   border-radius: 30px;
 }
 .albumContainer .parent .div1 .squareImage {
   width: 180px;
   height: 164px;
   border-radius: 30px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.albumContainer .parent #lireDiv2 {
+  padding-top: 3.2rem;
 }
 .albumContainer .parent .div2 {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 5rem 0rem 3rem 0rem;
+  padding: 2rem 3rem 3rem 2rem;
   grid-area: 1/2/2/3;
 }
 .albumContainer .parent .div2 button {
@@ -352,7 +360,7 @@ table {
   border-radius: 25px;
   border: none;
   cursor: pointer;
-  margin-top: 6rem;
+  margin-top: 3.5rem;
 }
 .albumContainer .parent .div2 p {
   font-family: "Kameron", serif;
@@ -362,4 +370,20 @@ table {
   border-top: 1px dotted #333333;
   width: 100%;
   height: 4px;
+}
+
+@media (max-width: 769px) {
+  .albumContainer {
+    width: 90%;
+  }
+  .albumContainer .Lire {
+    padding-left: 1.5rem;
+  }
+  .albumContainer .parent .div1 {
+    margin: auto;
+    padding-left: 2rem;
+  }
+  .albumContainer .parent .div2 {
+    padding-right: 2rem;
+  }
 }/*# sourceMappingURL=global.css.map */

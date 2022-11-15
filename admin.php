@@ -3,9 +3,10 @@ require_once('./constructor/database.php');
 require_once('./constructor/serie.php');
 require_once('./constructor/book.php');
 
-// SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id`
+$allSeries = series::seriesAll();
+$allBooks = books::booksAll();
 
-//SERIES
+// SERIES
 // Modify and display series
 if(isset($_POST['addSeries']) || isset($_POST['updateSeries'])){
     $url= "";
@@ -30,7 +31,7 @@ elseif(isset($_POST['deleteSeries'])){
 }
 
 
-//Allbum
+// Allbum
 // Modify and display books
 if(isset($_POST['addBooks']) || isset($_POST['updateAlbum'])){
     $url = "";
@@ -52,9 +53,13 @@ elseif(isset($_POST['deleteAlbum'])){
     exit();
 }
 
+// Add image
 if(isset($_POST['addImage'])){
     $b = new books($_POST);
     $b->image($_FILES['cover']);
+
+header('Location: admin.php'.$url);
+exit();
 }
 ?>
 
@@ -70,10 +75,9 @@ if(isset($_POST['addImage'])){
     <title>Bande dessinée website</title>
 </head>
 <body>
-    <div class="circle"></div>
-    <?php $allSeries = series::seriesAll();?>
-    <?php $allBooks = books::booksAll();?>
+
     <br>
+    <div class="circle"></div>
        <h2>Formulaire pour ajouter une série</h2>
    <br>
     <form action="admin.php" method="post">
@@ -150,7 +154,7 @@ if(isset($_POST['addImage'])){
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
     <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
     <input type="hidden" name="serie_id"  value="<?= $o ->getId()?>">
-    <input type="text" name="title" placeholder="title"  maxlength="200"  value="title" >
+    <input type="text" name="title" placeholder="title"  maxlength="200"  value="<?=$o->getTitle()?>" >
 
     <input type="text" name="num" placeholder="num"  maxlength="5" >
 
@@ -267,7 +271,7 @@ if(isset($_POST['addImage'])){
                 <input type="hidden" name="serie_id" value="<?= $o->getSerie_id()?>">
                 <input type="hidden" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
                 <input type="file" name="cover" multiple />
-                <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="<?= $o->getRep()?>">
+                <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
                 <input type="submit" name="addImage" value="Ajouter une image">
         </form>
         <?php endif;?>

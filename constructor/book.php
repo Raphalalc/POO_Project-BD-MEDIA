@@ -1,5 +1,5 @@
 <?php
-
+//  SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id` WHERE id = :id'
     class books extends database{
         protected $id;
         protected $created;
@@ -186,10 +186,11 @@
                         move_uploaded_file($_FILES['cover']['tmp_name'], 'assets/data/' . basename($_FILES['cover']['name']));
                         $this->cover = "assets/data/".$_FILES['cover']['name'];
                    
-                        $r = $this->prepare('UPDATE books SET cover = :c WHERE id = :id');
+                        $r = $this->prepare('UPDATE books SET cover = :c, rep = :re WHERE id = :id');
                         $r->execute([
                             ':id' => $this->id,
-                            ':c' => $this->cover
+                            ':c' => $this->cover,
+                            ':re' => $this->rep
                         ]);
                     }
                 }
@@ -219,8 +220,6 @@
             }
             return $books;
         }
-
-        // insert image
-     
     }
+
     ?>
