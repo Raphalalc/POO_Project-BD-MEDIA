@@ -182,6 +182,7 @@ exit();
  
     <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
 
+    <input type="hidden"  min="0" max="1" name="cover" placeholder="cover"  value="./assets/img/imageNotFound.png">
     <input type="hidden"  min="0" max="1" name="rep" placeholder="rep"  value="0">
     <input  class="submit" type="submit" name="addBooks" value="Ajouter un album " >
 </form>
@@ -309,7 +310,7 @@ exit();
                 <input type="hidden" name="serie_id" value="<?= $o->getSerie_id()?>">
                 <input type="hidden" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
                 <input type="file" name="cover" multiple />
-                <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
+                <input type="hidden"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
                 <input class="submit" type="submit" name="addImage" value="Ajouter une image">
         </form>
         <?php endif;?>

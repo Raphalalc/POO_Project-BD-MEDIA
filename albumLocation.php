@@ -6,6 +6,7 @@ require_once('./constructor/book.php');
 $BooksJoinSeries = database:: booksJoinSerie();
 $Serie = database:: SerieGetId();
 $BooksImage = database:: booksImage();
+
 ?>
 
 <!DOCTYPE html>
@@ -34,9 +35,14 @@ $BooksImage = database:: booksImage();
             <div class="parent">
                 <div class="div1">    
                     <?php foreach($BooksImage as $bImage): ?>
-                        <img class="rectangleImage"src="<?= $bImage->getCover()?>" alt="tome"> 
+                       
+                        <img class="rectangleImage" src="<?= $bImage->getCover()?>"  alt="tome"> 
+                    
                         <?php break; ?>
+                        
                     <?php endforeach; ?>
+            
+
                 </div>
                 <div class="div2">         
                 <p><b>Origine : </b> <?php foreach($Serie as $s): ?><?= $s->getOrigin() ?></h2><?php endforeach; ?></p>
@@ -56,7 +62,9 @@ $BooksImage = database:: booksImage();
         <?php foreach($BooksJoinSeries as $bJoinS): ?>
             <div class="parent" id="border-bottom">
                     <div class="div1" id="lireDiv1">
+    
                         <img class="squareImage" src="<?= $bJoinS->getCover()?>" alt="tome"> 
+                 
                     </div>
                 <div class="div2" id="lireDiv2"> 
                     <p><b>Title : </b> <?= $bJoinS->getTitle() ?></p>
@@ -71,7 +79,6 @@ $BooksImage = database:: booksImage();
         <?php endforeach; ?>
 
     </div>
-    
-    
+
 </body>
 </html>
