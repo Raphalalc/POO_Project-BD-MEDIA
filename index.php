@@ -1,8 +1,12 @@
 <?php 
 require_once('./constructor/database.php'); 
 require_once('./constructor/serie.php');
-$allSeries = series::seriesAll();
+require_once('./constructor/book.php');
 
+$allSeries = series::seriesAll();
+$allBooks= books::booksAll();
+$countWriter = books::countWriter();
+$countStrips = books::countStrips();
 // Button research
 if(isset($_POST['research'])){
     if(!empty($_POST['searchSerie'])){
@@ -59,7 +63,7 @@ else{
                     </div>
             </div>
 
-                <h2>Liste des séries</h2>
+                <h2 id="ListeDeSérie">Liste des séries</h2>
                 <div class="containerListSerie">
                     <div class="div1">
                     <table>
@@ -82,12 +86,13 @@ else{
                     </div>
                     
                     <div class="div2">
+                     
                        <div class="statistiques">
                             <h3>Statistiques</h3>
-                            <div class="miniContainer" id="containerBlue"> <p>Albums</p></div>
-                            <div class="miniContainer" id="containerBlue"> <p>Series</p></div>
-                            <div class="miniContainer" id="containerOrange"> <p>Auteurs</p></div>
-                            <div class="miniContainer" id="containerRed"> <p>Planches</p></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Series : <b><?= count($allSeries); ?></b></p></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Albums : <b><?= count($allBooks);?></b> </p></div>
+                            <div class="miniContainer" id="containerOrange"> <p>Auteurs : </p><b> <?php foreach($countWriter as $cw){echo ' '.$cw;}?></b></div>
+                            <div class="miniContainer" id="containerRed"> <p>Planches : </p><b><?php foreach($countStrips as $cs){echo ' '.$cs;}?></b></div>
                        </div>
                     </div>
                 </div>

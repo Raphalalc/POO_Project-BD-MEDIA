@@ -220,6 +220,20 @@
             }
             return $books;
         }
+        public static function countWriter(){
+            $db = new database();
+            $r = $db->query('SELECT COUNT(DISTINCT writer) FROM books');
+            $count = $r->fetch(PDO::FETCH_ASSOC);
+            return $count;
+        }
+
+        public static function countStrips(){
+            $db = new database();
+            $r = $db->query('SELECT SUM(strips) FROM books');
+            $count = $r->fetch(PDO::FETCH_ASSOC);
+            return $count;
+        }
     }
+       
 
     ?>

@@ -58,5 +58,6 @@
         }
         return $serie;
     }
+
 }
     
