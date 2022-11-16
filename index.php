@@ -1,4 +1,8 @@
 <?php 
+session_start();
+
+
+require('./includes/flash.php');
 require_once('./constructor/database.php'); 
 require_once('./constructor/serie.php');
 require_once('./constructor/book.php');
@@ -15,13 +19,15 @@ if(isset($_POST['research'])){
     elseif(!empty($_POST['searchOrigin'])){
         $allSeries = series::seriesOrigin();
     }
-    elseif(!empty($_POST['searchSerie']) && !empty($_POST['searchOrigin'])){
-        $allSeries = series::seriesOriginSearch();
-    }
     else{
         $allSeries = series::seriesAll();
     }
 }
+
+if(!empty($_POST['searchSerie']) && !empty($_POST['searchOrigin'])){
+    $allSeries = series::seriesOriginSearch();
+}
+
 // Button randomSearch
 if(isset($_POST['randomSearch'])){
     $allSeries = series::randomSearch();
@@ -69,8 +75,8 @@ else{
                     <table>
                         <thead>
                             <tr>
-                                <td><h3>Origin</h3></td>
-                                <td><h3>Title</h3></td>
+                                <td><h3>Origine</h3></td>
+                                <td><h3>Titre</h3></td>
                             </tr>
 
                         </thead>
@@ -83,21 +89,28 @@ else{
                             <?php endforeach;?>
                         </tbody>
                     </table>
+                    <?php
+                        if(isset($_SESSION['flash'])) {
+                         $message = $_SESSION['flash'];
+                         unset($_SESSION['flash']);
+                         echo "<b>$message</b>";
+                        }?>
                     </div>
                     
                     <div class="div2">
                      
                        <div class="statistiques">
                             <h3>Statistiques</h3>
-                            <div class="miniContainer" id="containerBlue"> <p>Series : <b><?= count($allSeries); ?></b></p></div>
-                            <div class="miniContainer" id="containerBlue"> <p>Albums : <b><?= count($allBooks);?></b> </p></div>
-                            <div class="miniContainer" id="containerOrange"> <p>Auteurs : </p><b> <?php foreach($countWriter as $cw){echo ' '.$cw;}?></b></div>
-                            <div class="miniContainer" id="containerRed"> <p>Planches : </p><b><?php foreach($countStrips as $cs){echo ' '.$cs;}?></b></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Nombre de series : <b><?= count($allSeries); ?></b></p></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Nombre d'albums : <b><?= count($allBooks);?></b> </p></div>
+                            <div class="miniContainer" id="containerOrange"> <p>Nombre d'auteurs : </p><b> <?php foreach($countWriter as $cw){echo ' '.$cw;}?></b></div>
+                            <div class="miniContainer" id="containerRed"> <p>Nombre de Planches : </p><b><?php foreach($countStrips as $cs){echo ' '.$cs;}?></b></div>
                        </div>
                     </div>
                 </div>
          
         </div>
+
     </main>
 </body>
 </html>

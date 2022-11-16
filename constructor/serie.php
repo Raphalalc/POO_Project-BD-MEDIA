@@ -1,4 +1,4 @@
-<?php 
+<?php
     class series extends Database {
 
         protected $id;
@@ -120,8 +120,12 @@
            while($d = $r->fetch(PDO::FETCH_ASSOC)){
                     $series[] = new series($d);
             }
+            if(empty($series)){
+                flash( "Nous avons trouvé aucun résultat à votre recherche série !" );
+            }
             return $series;
         }
+
 
         public static function seriesOrigin(){
             $db = new Database();
@@ -129,6 +133,9 @@
             $series = [];
             while($d = $r->fetch(PDO::FETCH_ASSOC)){
                 $series[] = new series($d);
+            }
+            if(empty($series)){
+                flash( "Nous avons trouvé aucun résultat à votre recherche origine !" );
             }
             return $series;
         }
@@ -139,6 +146,9 @@
             $series = [];
             while($d = $r->fetch(PDO::FETCH_ASSOC)){
                 $series[] = new series($d);
+            }
+            if(empty($series)){
+                flash( "Nous avons trouvé aucun résultat à votre recherche !" );
             }
             return $series;
         }

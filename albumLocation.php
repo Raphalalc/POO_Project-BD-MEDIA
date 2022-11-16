@@ -50,7 +50,7 @@ $BooksImage = database:: booksImage();
                     <?php foreach($BooksJoinSeries as $bJoinS): ?>
                     <p><b>L'écrivain : </b><?= $bJoinS->getWriter() ?></p>
                     <p><b>L'illustrateur : </b><?= $bJoinS->getIllustrator() ?></p>
-                    <p><b>Editeur : </b> <?= $bJoinS->getEditor() ?></p>
+                    <p><b>Éditeur : </b> <?= $bJoinS->getEditor() ?></p>
                     <?php break;?>
                     <?php endforeach; ?>
                 <button>Ajouter un album</button>
