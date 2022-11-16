@@ -72,22 +72,30 @@ exit();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&family=Kameron&family=Roboto:wght@700&display=swap" rel="stylesheet">
     <title>Bande dessinée website</title>
 </head>
 <body>
-
-    <br>
-    <div class="circle"></div>
+<header>
+        <div class="headerPage">
+            <div class="menu"><a href="index.php">Menu principal</a></div>
+            <div class="title"><h1>Page admin</h1></div>
+        </div>
+</header>
+<div class="containerAdminPage">
        <h2>Formulaire pour ajouter une série</h2>
-   <br>
+
     <form action="admin.php" method="post">
-       <label for="origin">Origin</label>
-       <input type="text" name="origin" placeholder="origin">
-       <label for="title">Title</label>
-       <input type="text" name="title" placeholder="title">
-       <input  type="submit" name="addSeries" value="Ajouter">
+    
+       <input type="text" name="origin" placeholder="Écrivez l'origine de la série">
+       <input type="text" name="title" placeholder="Écrivez le titre de la série">
+       <input class="submit" type="submit" name="addSeries" value="Ajouter">
    </form>
-    <table>
+ 
+
+            <h2>Liste des séries</h2>
+            <div class="containerTable">
+    <table  class="tableAdmin">
         <thead>
             <tr>
                 <td>ID</td>
@@ -99,11 +107,8 @@ exit();
                 <td>Delete</td>
                 <td>Add album</td>
             </tr>
-
         </thead>
         <tbody>
-            <h2>Page admin</h2>
-            <h3>Liste des séries</h3>
             <?php foreach($allSeries as $a):?>
             <tr>
                 <td><?php echo $a->getId();?></td>
@@ -119,7 +124,7 @@ exit();
                     <!-- Form delete button -->
                     <form method="post">
                     <input type="hidden" name="id" value="<?= $a->getId()?>">
-                    <input type="submit" name="deleteSeries" value="Delete">
+                    <input type="submit" class="deleteButton" name="deleteSeries" value="Delete">
                     </form>
                 </td>
                     <!-- Form Ajouter album -->
@@ -130,24 +135,33 @@ exit();
             <?php endforeach;?>
         </tbody>
     </table>
-   
+    </div>
 
     <?php if(!empty($_GET['edit'])): 
     $o = new series($_GET['edit']);?>
-    <br>
+   
     <h2>Formulaire pour modifier une série</h2>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-            <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
-            <label for="title">Title</label>
-            <input type="text" name="title" placeholder="title" value="<?= $o->getTitle()?>">
-            <label for="origin">Origin</label>
-            <input type="text" name="origin" placeholder="origin" value="<?= $o->getOrigin()?>">
-            <input type="hidden" name="id" value="<?= $o->getId()?>">
-            <input  type="submit" name="updateSeries" value="Modifier">
-        <?php endif;?>
-    </form>
+                <section>
+                    <label for="id">Id</label>
+                    <input type="text" name="id" placeholder="id" value="<?=  $o->getId()?>" readonly="readonly">
+                </section>
+                <section>
+                    <label for="title">Title</label>
+                    <input type="text" name="title" placeholder="title" value="<?= $o->getTitle()?>">
+                </section>
+                <section>
+                    <label for="origin">Origin</label>
+                    <input type="text" name="origin" placeholder="origin" value="<?= $o->getOrigin()?>">
+                </section>
+                    <input type="hidden" name="id" value="<?= $o->getId()?>">
+                <section>
+                    <input class="submit" type="submit" name="updateSeries" value="Modifier">
+                </section>
+            <?php endif;?>
+        </form>
 
-<br>
+
 <?php if(!empty($_GET['ajout'])): 
  $o = new series($_GET['ajout']);?>
 <h2>Formulaire pour ajouter un album</h2>
@@ -169,15 +183,16 @@ exit();
     <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
 
     <input type="hidden"  min="0" max="1" name="rep" placeholder="rep"  value="0">
-    <input  type="submit" name="addBooks" value="Ajouter un album " >
+    <input  class="submit" type="submit" name="addBooks" value="Ajouter un album " >
 </form>
 <?php endif;?>
-<br>
-    <h2>Liste des albums</h2>
-        <table>
-            <thead>
+
+        <div class="containerTable">
+        <h2>Liste des albums</h2>
+        <table class="tableAdmin">
+            <thead >
                 <tr>
-                        <td>Id</td>
+                        <td >Id</td>
                         <td>Created</td>
                         <td>Updated</td>
                         <td>Serie_id</td>
@@ -223,48 +238,71 @@ exit();
                     <td>
                             <form method="post">
                             <input type="hidden" name="id" value="<?= $a->getId()?>">
-                            <input type="submit" name="deleteAlbum" value="Delete">
+                            <input type="submit" class="deleteButton" name="deleteAlbum" value="Delete">
                             </form>
                     </td>
                 </tr>
-            <?php endforeach;?>
+                <?php endforeach;?>
             </tbody>
         </table>
+    </div>
         <!-- Modify Album -->
         <?php if(!empty($_GET['editAlbum'])): 
         $o = new books($_GET['editAlbum']);?>
-        <br>
+      
         <h2>Formulaire pour modifier un album</h2>
         <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-            <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
+            
                 <input type="hidden" name="id" value="<?= $o->getId()?>">
                 <input type="hidden" name="serie_id" value="<?= $o->getSerie_id()?>">
+            <section>
+                <label for="id">Id</label>
+                <input type="text" name="title" placeholder="Id" value="<?= $o->getId() ?>"  readonly="readonly">
+            </section>
+            <section>
                 <label for="title">Title</label>
                 <input type="text" name="title" placeholder="title" maxlength="200" value="<?= $o->getTitle()?>">
+            </section>
+            <section>
                 <label for="num"  >Num</label>
                 <input type="text" name="num" placeholder="num" maxlength="5" value="<?= $o->getNum()?>">
+            </section>
+            <section>
                 <label for="writer">Writer</label>
                 <input type="text" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
+            </section>
+            <section>
                 <label for="illustrator">Illustrator</label>
                 <input type="text" name="illustrator" placeholder="illustrator" maxlength="100" value="<?= $o->getIllustrator()?>">
+            </section>
+            <section>
                 <label for="editor">Editor</label>
                 <input type="text" name="editor" placeholder="editor" maxlength="100" value="<?= $o->getEditor()?>">
+            </section>
+            <section>
                 <label for="releaseyear">Releaseyear</label>
                 <input type="number" min="1976" maxlength="2100" name="releaseyear" placeholder="releaseyear" value="<?= $o->getReleaseyear()?>">
+            </section>
+            <section>
                 <label for="strips">Strips</label>
                 <input type="number" name="strips" placeholder="strips" maxlength="5" value="<?= $o->getStrips()?>">
+            </section>
+            <section>
                 <label for="cover">Cover</label>
                 <input type="text" name="cover" placeholder="cover" maxlength="30"value="<?= $o->getCover()?>">
+            </section>
+            <section>
                 <label for="rep">Rep</label>
                 <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="<?= $o->getRep()?>">
-                <input  type="submit" name="updateAlbum" value="Modifier l'album">
+            </section>
+                <input class="submit" type="submit" name="updateAlbum" value="Modifier l'album">
         </form>
         <?php endif;?>
 
         <!-- Form Image -->
         <?php if(!empty($_GET['addImage'])):
         $o = new books($_GET['addImage']);?>
-        <br>
+     
         <h2>Formulaire pour ajouter une image</h2>
         <form  action="<?= $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $o->getId()?>">
@@ -272,9 +310,9 @@ exit();
                 <input type="hidden" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
                 <input type="file" name="cover" multiple />
                 <input type="number"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
-                <input type="submit" name="addImage" value="Ajouter une image">
+                <input class="submit" type="submit" name="addImage" value="Ajouter une image">
         </form>
         <?php endif;?>
-        
+        </div>
 </body>
 </html>

@@ -287,10 +287,104 @@ body {
   }
 }
 /*-------------------------------- Admin Page ------------------------------*/
-table {
-  border-spacing: 1rem 0;
+.containerAdminPage {
+  padding-top: 2rem;
+  margin: auto;
+  width: 90%;
+  margin-bottom: 3rem;
+}
+.containerAdminPage h2 {
+  margin-top: 1rem;
+}
+.containerAdminPage form {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.containerAdminPage form section {
+  font-weight: bold;
+}
+.containerAdminPage form input, .containerAdminPage form label {
+  display: block;
+}
+.containerAdminPage .deleteButton {
+  background-color: #ff0000;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-family: "Kameron", serif;
+  font-weight: bold;
+}
+.containerAdminPage input[type=text], .containerAdminPage input[type=number] {
+  padding-left: 1rem;
+  height: 40px;
+  background-color: white;
+  border: none;
+  font-family: "Kameron", serif;
+  font-weight: bold;
+  width: 180px;
+}
+.containerAdminPage .submit {
+  padding: 0.75rem;
+  background-color: #333333;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-family: "Kameron", serif;
+  font-weight: bold;
+}
+.containerAdminPage .submit:hover {
+  background-color: rgba(51, 51, 51, 0.6901960784);
+  color: white;
+}
+.containerAdminPage .containerTable {
+  overflow-x: auto;
+}
+.containerAdminPage .tableAdmin {
+  border-collapse: collapse;
+}
+.containerAdminPage .tableAdmin thead tr td {
+  font-weight: bold;
+  text-align: center;
+  padding: 0.1rem 1rem 0.5rem 1rem;
+  border-bottom: solid 1px white;
+}
+.containerAdminPage .tableAdmin tbody tr td {
+  text-align: center;
+  padding: 0.5rem 1rem 0.1rem 1rem;
 }
 
+.deleteButton {
+  background-color: #ff0000;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-family: "Kameron", serif;
+  font-weight: bold;
+  padding: 0.4rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: -10px;
+}
+
+a {
+  color: white;
+}
+
+@media (max-width: 452px) {
+  .containerAdminPage form {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .containerAdminPage form input[type=text], .containerAdminPage form input[type=number] {
+    width: 80%;
+    min-width: 200px;
+  }
+}
 /*-------------------------------- Album Location ------------------------------*/
 .headerLocation {
   background-color: #272C44;

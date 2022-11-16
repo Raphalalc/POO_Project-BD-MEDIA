@@ -44,12 +44,12 @@ else{
 </head>
 <body>
 
-    <header>
+<header>
         <div class="headerPage">
-            <div class="menu"><a href="admin.php">Page admin</a></div>
+            <div class="menu"><a href="admin.php">Home page</a></div>
             <div class="title"><h1>BD MEDIA</h1></div>
         </div>
-    </header>
+</header>
 
     <main>
         <div class="container">
