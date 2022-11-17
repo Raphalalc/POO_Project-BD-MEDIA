@@ -56,7 +56,7 @@ elseif(isset($_POST['deleteAlbum'])){
 // Add image
 if(isset($_POST['addImage'])){
     $b = new books($_POST);
-    $b->image($_FILES['cover']);
+    $b-> mooveFolderImage($_FILES['cover']);
 
 header('Location: admin.php'.$url);
 exit();
@@ -308,7 +308,6 @@ exit();
         <form  action="<?= $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $o->getId()?>">
                 <input type="hidden" name="serie_id" value="<?= $o->getSerie_id()?>">
-                <input type="hidden" name="writer" placeholder="writer" maxlength="100" value="<?= $o->getWriter()?>">
                 <input type="file" name="cover" multiple />
                 <input type="hidden"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
                 <input class="submit" type="submit" name="addImage" value="Ajouter une image">

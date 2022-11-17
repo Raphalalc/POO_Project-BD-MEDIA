@@ -172,30 +172,33 @@
                 ':st' => $this->strips,
                 ':c' => $this->cover,
                 ':re' => $this->rep
-            ]);
+            ]);              
             }
         }
+
+
+
+        function saveDataWithImage(){
+            $r = $this->prepare('INSERT INTO books (serie_id, title, num, writer, illustrator, editor, releaseyear, strips, cover, rep) VALUES (:s, :t, :n, :w, :i, :e, :r, :st, :c, :re)');
+            $this->cover= "assets/data/".$this->cover;
+            $r->execute([
+                ':s' => $this->serie_id,
+                ':t' => $this->title,
+                ':n' => $this->num,
+                ':w' => $this->writer,
+                ':i' => $this->illustrator,
+                ':e' => $this->editor,
+                ':r' => $this->releaseyear,
+                ':st' => $this->strips,
+                ':c' => $this->cover,
+                ':re' => $this->rep
+            ]);              
+        } 
+        
+        
+        
        
-        public function image(){
-            if(isset($_FILES['cover']) && $_FILES['cover']['error'] == 0){
-                if($_FILES['cover']['size'] <= 1000000){
-                    $infosfichier = pathinfo($_FILES['cover']['name']);
-                    $extension_upload = $infosfichier['extension'];
-                    $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
-                    if(in_array($extension_upload, $extensions_autorisees)){
-                        move_uploaded_file($_FILES['cover']['tmp_name'], 'assets/data/' . basename($_FILES['cover']['name']));
-                        $this->cover = "assets/data/".$_FILES['cover']['name'];
-                   
-                        $r = $this->prepare('UPDATE books SET cover = :c, rep = :re WHERE id = :id');
-                        $r->execute([
-                            ':id' => $this->id,
-                            ':c' => $this->cover,
-                            ':re' => $this->rep
-                        ]);
-                    }
-                }
-            }
-        }
+        
 
         public function isValid(){
            if(empty($this->title) || empty($this->num) || empty($this->writer) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips)){
@@ -233,7 +236,62 @@
             $count = $r->fetch(PDO::FETCH_ASSOC);
             return $count;
         }
+
+        public static function booksJoinSerie(){
+            $db = new database();
+            $r = $db->query(" SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id` WHERE b.`serie_id` = $_GET[id]");
+            $books = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $books[] = new books($d);
+            }
+            return $books;
+        }
+
+        public static function booksImage(){
+            $db = new database();
+            $r = $db->query(" SELECT `cover` FROM `books` WHERE `serie_id` = $_GET[id] ORDER BY `created` DESC");
+            $books = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $books[] = new books($d);
+            }
+            return $books;
+        }
+
+        public function image(){
+            if(isset($_FILES['cover']) && $_FILES['cover']['error'] == 0){
+                if($_FILES['cover']['size'] <= 1000000){
+                    $infosfichier = pathinfo($_FILES['cover']['name']);
+                    $extension_upload = $infosfichier['extension'];
+                    $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+                    if(in_array($extension_upload, $extensions_autorisees)){
+                        move_uploaded_file($_FILES['cover']['tmp_name'], 'assets/data/' . basename($_FILES['cover']['name']));
+                        $this->cover = "assets/data/".$_FILES['cover']['name'];
+                   
+                        $r = $this->prepare('UPDATE books SET cover = :c, rep = :re WHERE id = :id');
+                        $r->execute([
+                            ':id' => $this->id,
+                            ':c' => $this->cover,
+                            ':re' => $this->rep
+                        ]);
+                    }
+                }
+            }
+        }
+        public function mooveFolderImage(){
+            if(isset($_FILES['cover']) && $_FILES['cover']['error'] == 0){
+                if($_FILES['cover']['size'] <= 1000000){
+                    $infosfichier = pathinfo($_FILES['cover']['name']);
+                    $extension_upload = $infosfichier['extension'];
+                    $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+                    if(in_array($extension_upload, $extensions_autorisees)){
+                        move_uploaded_file($_FILES['cover']['tmp_name'], 'assets/data/' . basename($_FILES['cover']['name']));
+                    }
+                }
+            }
+        }
+        
+    
     }
        
-
+       
     ?>

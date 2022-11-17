@@ -421,7 +421,7 @@ a{
         }
         #lireDiv2{padding-top:3.2rem;}
         .div2 { display:flex; align-items: flex-start; justify-content: flex-start; flex-direction:column; padding:2rem 3rem 3rem 2rem;grid-area: 1 / 2 / 2 / 3;
-            button{
+            #addAlbum{
                 background-color : $container;
                 color:white;
                 font-size:1rem;

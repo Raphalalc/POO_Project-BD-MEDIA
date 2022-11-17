@@ -86,7 +86,6 @@
                     ':t' => $this->title,
                     ':o' => $this->origin
                 ]);
-                // $this->id = $this->lastInsertId();
             }
         }
         public function isValid(){
@@ -161,6 +160,16 @@
                 $series[] = new series($d);
             }
             return $series;
+        }
+
+        public static function SerieGetId(){
+            $db = new database();
+            $r = $db->query("SELECT * FROM series WHERE id = $_GET[id]");
+            $serie = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $serie[] = new series($d);
+            }
+            return $serie;
         }
     }
 

@@ -465,7 +465,7 @@ a {
   padding: 2rem 3rem 3rem 2rem;
   grid-area: 1/2/2/3;
 }
-.albumContainer .parent .div2 button {
+.albumContainer .parent .div2 #addAlbum {
   background-color: #272C44;
   color: white;
   font-size: 1rem;
