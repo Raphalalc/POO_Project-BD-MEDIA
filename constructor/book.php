@@ -176,8 +176,6 @@
             }
         }
 
-
-
         function saveDataWithImage(){
             $r = $this->prepare('INSERT INTO books (serie_id, title, num, writer, illustrator, editor, releaseyear, strips, cover, rep) VALUES (:s, :t, :n, :w, :i, :e, :r, :st, :c, :re)');
             $this->cover= "assets/data/".$this->cover;
@@ -194,11 +192,6 @@
                 ':re' => $this->rep
             ]);              
         } 
-        
-        
-        
-       
-        
 
         public function isValid(){
            if(empty($this->title) || empty($this->num) || empty($this->writer) || empty($this->illustrator) || empty($this->editor) || empty($this->releaseyear) || empty($this->strips)){

@@ -12,17 +12,20 @@ $Serie = series:: SerieGetId();
 if(isset($_POST['addImage'])){
     $id = $_GET['id'];
     $b = new books($_POST);
-    $b->image($_FILES['cover']);
-    header('Location: albumLocation.php?id='.$id);
-exit();
+    $b->mooveFolderImage($_FILES['cover']);
 }
 
 if(isset($_POST['test'])){
     $id = $_GET['id'];
     $b = new books($_POST);
-    $b->image($_FILES['cover']);
+    if($b->isValid()){
+    $b->saveDataWithImage();
     header('Location: albumLocation.php?id='.$id);
-exit();
+    exit();
+}
+    else{
+        flashForm("Veuillez remplir tous les champs");
+    }
 }
 
 
@@ -41,7 +44,7 @@ exit();
 </head>
 <body>
     <header class="headerLocation">
-        <a href="index.php">Home Page</a>
+        <a href="index.php">Menu principal</a>
         <img src="./assets/img/bugs.png" alt="bugs bunny">
     </header>
 
@@ -51,45 +54,65 @@ exit();
                 <h2><?= $s->getTitle() ?></h2>
       <?php endforeach; ?>
         </div>
-        <div class="albumContainerForm">
-        <form method="post" enctype="multipart/form-data">
-                <input type="file" name="cover" multiple />
-                <input type="hidden"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
-                <input class="submit" type="submit" name="addImage" value="Ajouter une image">
-        </form>
-
-        <?php if(isset($_POST['addAlbum'])):
+  
+        <?php if(isset($_POST['addAlbum'])|| isset($_POST['addImage'])):
             $s = new series($_GET['id']);?>
-            <form  method="post">
-            <input type="hidden" name="serie_id"  value="<?= $_GET['id'] ?>">
-            <input type="text" name="title" placeholder="title"  maxlength="200"  value="<?=$s->getTitle()?>" >
-            <input type="text" name="num" placeholder="num"  maxlength="5" >
-            <input type="text" name="writer" placeholder="writer"  maxlength="100"  value="testwrite" >
-            <input type="text" name="illustrator" placeholder="illustrator"  maxlength="100" value="testillustrator"> 
-            <input type="text" name="editor" placeholder="editor" maxlength="100"   value="testeditor" >
-            <input type="number" name="releaseyear" placeholder="releaseyear" min="1976" maxlength="2100">
-            <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
-            <input type="file" name="cover" placeholder="cover" value="./assets/img/imageNotFound.png">
-            <input type="hidden"  min="0" max="1" name="rep" placeholder="rep"  value="0">
-            <input  class="submit" type="submit" name="test" value="Ajouter un album " >
-</form>
-       
-   
-            <?php endif; ?>
+           
+           <div class="formularAlbum">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="cover" >
+            <input type="hidden"  min="0" max="1" name="rep"  name="rep" placeholder="rep" value="1">
+            <input class="submit" type="submit" name="addImage" value="Enregistrer l'image">
         
-        </div>
-
+        </form>
+        <form  method="post">
+            <input type="hidden" name="serie_id"  value="<?= $_GET['id'] ?>">
             <div class="parent">
+            <div class="div1"> 
+      
+
+                <label for="title">Titre</label>
+                <input type="text" name="title" placeholder="title"  maxlength="200"  value="<?=$s->getTitle()?>" >
+      
+                <label for="num">Identifaint</label>
+                <input type="text" name="num" placeholder="45312"  maxlength="5" >
+     
+                <label for="writer">L'écrivain</label>
+                <input type="text" name="writer" placeholder="Philippe Chappuis"  maxlength="100" >
+       
+                <label for="illustrator">Illustrateur</label>
+                <input type="text" name="illustrator" placeholder="Philippe Chappuis"   maxlength="100" > 
+            </div>
+            <div class="div2"> 
+                <label for="editor">Éditeur</label>
+                <input type="text" name="editor" placeholder="Casterman" maxlength="100">
+       
+                <label for="releaseyear">Date de création</label>
+                <input type="number" name="releaseyear" placeholder="2007" min="1976" maxlength="2100">
+      
+                <label for="stris">Planches</label>
+                <input type="number" name="strips" placeholder="220" maxlength="5">
+                </div>
+            </div>
+       
+      
+            <input type="hidden"  min="0" max="1" name="rep" placeholder="rep"  value="1">
+           
+            <label for="stris">Remettre l'image correspondante</label>
+            <input type="file" name="cover" placeholder="cover" value="./assets/img/imageNotFound.png" required>
+            <input  class="submit" type="submit" name="test" value="Ajouter un album " >
+        </form>
+    </div>
+       
+        <?php endif; ?>
+   
+
+            <div class="parent" id="presentation">
                 <div class="div1">    
                     <?php foreach($BooksImage as $bImage): ?>
-                       
                         <img class="rectangleImage" src="<?= $bImage->getCover()?>"  alt="tome"> 
-                    
                         <?php break; ?>
-                        
                     <?php endforeach; ?>
-            
-
                 </div>
                 <div class="div2">         
                 <p><b>Origine : </b> <?php foreach($Serie as $s): ?><?= $s->getOrigin() ?></h2><?php endforeach; ?></p>
@@ -105,7 +128,7 @@ exit();
                     <!-- form test -->
                     <?php endforeach; ?>
                     <form action="" method="post">
-                        <input type="submit" name="addAlbum" value="Ajouter un album formulaire"> 
+                        <input id="addAlbum" type="submit" name="addAlbum" value="Ajouter un album"> 
                     </form>
                     <?php
                         if(isset($_SESSION['flashForm'])) {
@@ -113,15 +136,17 @@ exit();
                         unset($_SESSION['flashForm']);
                         echo "<b>$message</b>";}
                     ?>
-                    
             </div>
         </div>
-    
+
+        <div class="parent" id="Lire">
+        <div class="div1">  <h2>A LIRE AUSSI</h2></div>
+        </div>
         
-        <h2 class="Lire">A LIRE AUSSI</h2>
         <?php foreach($BooksJoinSeries as $bJoinS): ?>
             <div class="parent" id="border-bottom">
-                    <div class="div1" id="lireDiv1">
+                <div class="div1" id="lireDiv1">
+
     
                         <img class="squareImage" src="<?= $bJoinS->getCover()?>" alt="tome"> 
                  

@@ -9,6 +9,7 @@ require_once('./constructor/book.php');
 
 $allSeries = series::seriesAll();
 $allBooks= books::booksAll();
+$countSeries = series::seriesAll();
 $countWriter = books::countWriter();
 $countStrips = books::countStrips();
 // Button research
@@ -52,7 +53,7 @@ else{
 
 <header>
         <div class="headerPage">
-            <div class="menu"><a href="admin.php">Admin page</a></div>
+            <div class="menu"><a href="admin.php">Page admin</a></div>
             <div class="title"><h1>BD MEDIA</h1></div>
         </div>
 </header>
@@ -101,7 +102,7 @@ else{
                      
                        <div class="statistiques">
                             <h3>Statistiques</h3>
-                            <div class="miniContainer" id="containerBlue"> <p>Nombre de series : <b><?= count($allSeries); ?></b></p></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Nombre de series : <b><?= count($countSeries);?></b></b></div>
                             <div class="miniContainer" id="containerBlue"> <p>Nombre d'albums : <b><?= count($allBooks);?></b> </p></div>
                             <div class="miniContainer" id="containerOrange"> <p>Nombre d'auteurs : </p><b> <?php foreach($countWriter as $cw){echo ' '.$cw;}?></b></div>
                             <div class="miniContainer" id="containerRed"> <p>Nombre de Planches : </p><b><?php foreach($countStrips as $cs){echo ' '.$cs;}?></b></div>

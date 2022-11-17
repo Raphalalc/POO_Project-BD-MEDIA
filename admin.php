@@ -56,7 +56,7 @@ elseif(isset($_POST['deleteAlbum'])){
 // Add image
 if(isset($_POST['addImage'])){
     $b = new books($_POST);
-    $b-> mooveFolderImage($_FILES['cover']);
+    $b-> image($_FILES['cover']);
 
 header('Location: admin.php'.$url);
 exit();
