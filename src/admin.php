@@ -73,7 +73,7 @@ exit();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/global.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500&family=Kameron&family=Roboto:wght@700&display=swap" rel="stylesheet">
-    <title>Bande dessinée website</title>
+    <title>BD MEDIA | Page admin </title>
 </head>
 <body>
 <header>
