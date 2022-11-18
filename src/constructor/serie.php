@@ -172,7 +172,7 @@
             return $serie;
         }
 
-        // count series
+      
         public static function countSeries(){
             $db = new Database();
             $r = $db->query('SELECT COUNT(*) FROM series');

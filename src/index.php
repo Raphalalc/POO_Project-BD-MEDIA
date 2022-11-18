@@ -24,7 +24,6 @@ if(isset($_POST['research'])){
         $allSeries = series::seriesAll();
     }
 }
-
 if(!empty($_POST['searchSerie']) && !empty($_POST['searchOrigin'])){
     $allSeries = series::seriesOriginSearch();
 }

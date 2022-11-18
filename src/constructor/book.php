@@ -1,5 +1,4 @@
 <?php
-//  SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id` WHERE id = :id'
     class books extends database{
         protected $id;
         protected $created;
@@ -138,9 +137,6 @@
         public function getRep(){
             return $this->rep;
         }
-
-        // mysql request to update books
-
        
         public function save(){
             if($this->id > 0){
