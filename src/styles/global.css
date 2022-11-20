@@ -342,6 +342,11 @@ body {
 .containerAdminPage .containerTable {
   overflow-x: auto;
 }
+.containerAdminPage .containerTable h2 {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
 .containerAdminPage .tableAdmin {
   border-collapse: collapse;
 }

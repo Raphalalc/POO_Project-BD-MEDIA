@@ -292,6 +292,9 @@ body{
     }
 .containerTable{
     overflow-x: auto;
+    h2{
+        display:flex; gap:1rem; align-items:flex-end;
+    }
 }
 .tableAdmin{
     border-collapse: collapse;

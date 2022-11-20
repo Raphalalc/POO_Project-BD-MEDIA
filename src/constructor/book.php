@@ -246,6 +246,16 @@
             return $books;
         }
 
+        public static function booksBySerie_ID(){
+            $db = new database();
+            $r = $db->query("SELECT * FROM `books` ORDER BY `serie_id` DESC");
+            $books = [];
+            while($d = $r->fetch(PDO::FETCH_ASSOC)){
+                $books[] = new books($d);
+            }
+            return $books;
+        }
+        
         public function image(){
             if(isset($_FILES['cover']) && $_FILES['cover']['error'] == 0){
                 if($_FILES['cover']['size'] <= 1000000){

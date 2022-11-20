@@ -61,6 +61,14 @@ if(isset($_POST['addImage'])){
 header('Location: admin.php'.$url);
 exit();
 }
+
+
+if(isset($_POST['filterBooks'])){
+    $allBooks = books::booksBySerie_ID();
+}
+elseif(isset($_POST['noFilter'])){
+    $allBooks = books::booksAll();
+}
 ?>
 
 
@@ -189,7 +197,15 @@ exit();
 <?php endif;?>
 
         <div class="containerTable">
-        <h2>Liste des albums</h2>
+        <h2>Liste des albums
+            <form action="admin.php" method="post">
+            <input class="submit" type="submit" name="noFilter" value="Filtrer par ID">
+            </form>
+            
+            <form action="admin.php" method="post">
+            <input class="submit" type="submit" name="filterBooks" value="Filtrer par série_id">
+            </form>
+     </h2>
         <table class="tableAdmin">
             <thead >
                 <tr>
