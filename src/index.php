@@ -32,10 +32,6 @@ if(!empty($_POST['searchSerie']) && !empty($_POST['searchOrigin'])){
 if(isset($_POST['randomSearch'])){
     $allSeries = series::randomSearch();
 }
-else{
-    $allSerie = series::seriesAll();
-}
-
 
 ?>
 <!DOCTYPE html>

@@ -140,7 +140,11 @@ if(isset($_POST['test'])){
         </div>
 
         <div class="parent" id="Lire">
-        <div class="div1">  <h2>A LIRE AUSSI</h2></div>
+        <div class="div1"> 
+             <?php 
+            if(sizeof($BooksJoinSeries) >1){ echo '<h2>A LIRE AUSSI</h2>';}
+            ?>
+        </div>
         </div>
         
         <?php foreach($BooksJoinSeries as $bJoinS): ?>
