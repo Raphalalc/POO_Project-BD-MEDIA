@@ -1,7 +1,6 @@
 <?php 
 session_start();
 
-
 require('./includes/flash.php');
 require_once('./constructor/database.php'); 
 require_once('./constructor/serie.php');

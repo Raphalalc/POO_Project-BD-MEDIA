@@ -6,7 +6,7 @@
         protected $serie_id;
         protected $title;
         protected $num;
-        protected $write;
+        protected $writer;
         protected $illustrator;
         protected $editor;
         protected $releaseyear;
