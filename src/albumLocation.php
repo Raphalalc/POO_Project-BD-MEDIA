@@ -121,9 +121,6 @@ if(isset($_POST['test'])){
                     <p><b>L'écrivain : </b><?= $bJoinS->getWriter() ?></p>
                     <p><b>L'illustrateur : </b><?= $bJoinS->getIllustrator() ?></p>
                     <p><b>Éditeur : </b> <?= $bJoinS->getEditor() ?></p>
-                    
-               
-                    
                     <?php break;?>
                     <!-- form test -->
                     <?php endforeach; ?>
@@ -150,10 +147,7 @@ if(isset($_POST['test'])){
         <?php foreach($BooksJoinSeries as $bJoinS): ?>
             <div class="parent" id="border-bottom">
                 <div class="div1" id="lireDiv1">
-
-    
-                        <img class="squareImage" src="<?= $bJoinS->getCover()?>" alt="tome"> 
-                 
+                        <img class="squareImage" src="<?= $bJoinS->getCover()?>" alt="tome">      
                     </div>
                 <div class="div2" id="lireDiv2"> 
                     <p><b>Title : </b> <?= $bJoinS->getTitle() ?></p>

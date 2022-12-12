@@ -228,7 +228,7 @@
 
         public static function booksJoinSerie(){
             $db = new database();
-            $r = $db->query(" SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id` WHERE b.`serie_id` = $_GET[id]");
+            $r = $db->query("SELECT s.*, b.* FROM `books` b INNER JOIN `series` s ON b.`serie_id` = s.`id` WHERE b.`serie_id` = $_GET[id]");
             $books = [];
             while($d = $r->fetch(PDO::FETCH_ASSOC)){
                 $books[] = new books($d);
@@ -288,8 +288,6 @@
                 }
             }
         }
-        
-    
     }
        
        

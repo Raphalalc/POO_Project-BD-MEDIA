@@ -20,8 +20,6 @@
                 
                 if($r->rowCount() > 0)
                 $this->hydrate($r->fetch(PDO::FETCH_ASSOC));	
-                
-                
             }
             //
         }

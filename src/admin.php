@@ -177,19 +177,12 @@ elseif(isset($_POST['noFilter'])){
     <?= "Id : ".'<b>'. $o->getId() .'</b>'?>
     <input type="hidden" name="serie_id"  value="<?= $o ->getId()?>">
     <input type="text" name="title" placeholder="title"  maxlength="200"  value="<?=$o->getTitle()?>" >
-
     <input type="text" name="num" placeholder="num"  maxlength="5" >
-
-    <input type="text" name="writer" placeholder="writer"  maxlength="100"  value="testwrite" >
-
-    <input type="text" name="illustrator" placeholder="illustrator"  maxlength="100" value="testillustrator"> 
- 
-    <input type="text" name="editor" placeholder="editor" maxlength="100"   value="testeditor" >
-
+    <input type="text" name="writer" placeholder="writer"  maxlength="100">
+    <input type="text" name="illustrator" placeholder="illustrator"  maxlength="100" > 
+    <input type="text" name="editor" placeholder="editor" maxlength="100"   >
     <input type="number" name="releaseyear" placeholder="releaseyear" min="1976" maxlength="2100">
- 
-    <input type="number" name="strips" placeholder="strips" maxlength="5"  value="testStrips" >
-
+    <input type="number" name="strips" placeholder="strips" maxlength="5" >
     <input type="hidden"  min="0" max="1" name="cover" placeholder="cover"  value="./assets/img/imageNotFound.png">
     <input type="hidden"  min="0" max="1" name="rep" placeholder="rep"  value="0">
     <input  class="submit" type="submit" name="addBooks" value="Ajouter un album " >
@@ -209,23 +202,22 @@ elseif(isset($_POST['noFilter'])){
         <table class="tableAdmin">
             <thead >
                 <tr>
-                        <td >Id</td>
-                        <td>Created</td>
-                        <td>Updated</td>
-                        <td>Serie_id</td>
-                        <td>Title</td>
-                        <td>Num</td>
-                        <td>Writer</td>
-                        <td>Illustrator</td>
-                        <td>Editor</td>
-                        <td>Releaseyear</td>
-                        <td>Strips</td>
-                        <td>Cover</td>
-                        <td>Rep</td>
-                        <td>Modify</td>
-                        <td>Add Image</td>
-                        <td>Delete</td>
-                        
+                    <td >Id</td>
+                    <td>Created</td>
+                    <td>Updated</td>
+                    <td>Serie_id</td>
+                    <td>Title</td>
+                    <td>Num</td>
+                    <td>Writer</td>
+                    <td>Illustrator</td>
+                    <td>Editor</td>
+                    <td>Releaseyear</td>
+                    <td>Strips</td>
+                    <td>Cover</td>
+                    <td>Rep</td>
+                    <td>Modify</td>
+                    <td>Add Image</td>
+                    <td>Delete</td>
                 </tr>
             </thead>
             <tbody>
