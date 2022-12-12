@@ -96,10 +96,10 @@ if(isset($_POST['randomSearch'])){
                      
                        <div class="statistiques">
                             <h3>Statistiques</h3>
-                            <div class="miniContainer" id="containerBlue"> <p>Nombre de series : <b><?= count($countSeries);?></b></b></div>
-                            <div class="miniContainer" id="containerBlue"> <p>Nombre d'albums : <b><?= count($allBooks);?></b> </p></div>
-                            <div class="miniContainer" id="containerOrange"> <p>Nombre d'auteurs : </p><b> <?php foreach($countWriter as $cw){echo ' '.$cw;}?></b></div>
-                            <div class="miniContainer" id="containerRed"> <p>Nombre de Planches : </p><b><?php foreach($countStrips as $cs){echo ' '.$cs;}?></b></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Nombre de series :  <b><?= count($countSeries);?></b></b></div>
+                            <div class="miniContainer" id="containerBlue"> <p>Nombre d'albums :  <b><?= count($allBooks);?></b> </p></div>
+                            <div class="miniContainer" id="containerOrange"> <p>Nombre d'auteurs : <b> <?php foreach($countWriter as $cw){echo ' '.$cw;}?></b> </p></div>
+                            <div class="miniContainer" id="containerRed"> <p>Nombre de Planches : <b><?php foreach($countStrips as $cs){echo ' '.$cs;}?></b> </p></div>
                        </div>
                     </div>
                 </div>
