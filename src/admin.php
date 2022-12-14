@@ -85,10 +85,7 @@ elseif(isset($_POST['noFilter'])){
 </head>
 <body>
 <header>
-        <div class="headerPage">
-            <div class="menu"><a href="index.php">Menu principal</a></div>
-            <div class="title"><h1>Page admin</h1></div>
-        </div>
+      
 </header>
 <div class="containerAdminPage">
        <h2>Formulaire pour ajouter une série</h2>
@@ -151,6 +148,7 @@ elseif(isset($_POST['noFilter'])){
     <h2>Formulaire pour modifier une série</h2>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
                 <section>
+                    <input type="hidden" name="id" value="<?= $o->getId()?>">
                     <label for="id">Id</label>
                     <input type="text" name="id" placeholder="id" value="<?=  $o->getId()?>" readonly="readonly">
                 </section>
@@ -162,7 +160,6 @@ elseif(isset($_POST['noFilter'])){
                     <label for="origin">Origin</label>
                     <input type="text" name="origin" placeholder="origin" value="<?= $o->getOrigin()?>">
                 </section>
-                    <input type="hidden" name="id" value="<?= $o->getId()?>">
                 <section>
                     <input class="submit" type="submit" name="updateSeries" value="Modifier">
                 </section>
