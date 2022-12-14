@@ -84,8 +84,8 @@ elseif(isset($_POST['noFilter'])){
     <title>BD MEDIA | Page admin </title>
 </head>
 <body>
-<header>
-      
+<header class="headerLocation">
+        <a href="index.php">Menu principal</a>
 </header>
 <div class="containerAdminPage">
        <h2>Formulaire pour ajouter une série</h2>
