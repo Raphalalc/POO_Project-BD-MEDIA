@@ -15,7 +15,7 @@ if(isset($_POST['addImage'])){
     $b->mooveFolderImage($_FILES['cover']);
 }
 
-if(isset($_POST['test'])){
+if(isset($_POST['correspondingImage'])){
     $id = $_GET['id'];
     $b = new books($_POST);
     if($b->isValid()){
@@ -100,7 +100,7 @@ if(isset($_POST['test'])){
            
             <label for="stris">Remettre l'image correspondante</label>
             <input type="file" name="cover" placeholder="cover" value="./assets/img/imageNotFound.png" required>
-            <input  class="submit" type="submit" name="test" value="Ajouter un album " >
+            <input  class="submit" type="submit" name="correspondingImage" value="Ajouter un album " >
         </form>
     </div>
        
@@ -122,7 +122,7 @@ if(isset($_POST['test'])){
                     <p><b>L'illustrateur : </b><?= $bJoinS->getIllustrator() ?></p>
                     <p><b>Éditeur : </b> <?= $bJoinS->getEditor() ?></p>
                     <?php break;?>
-                    <!-- form test -->
+            
                     <?php endforeach; ?>
                     <form action="" method="post">
                         <input id="addAlbum" type="submit" name="addAlbum" value="Ajouter un album"> 
